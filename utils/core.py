@@ -121,7 +121,8 @@ class clsInjector:
             
             strBasePath = modOs.path.join(modOs.path.dirname(__file__), 'scripts')
             strScriptPath = modOs.path.join(strBasePath, 'script.lua')
-
+            
+            strFinalScript = ""
             with open(strScriptPath, 'r') as objFileScript:
                 strFinalScript += objFileScript.read()
 
