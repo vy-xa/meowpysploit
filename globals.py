@@ -1,8 +1,19 @@
 import json
 import urllib.request
 
-# these are hardcoded bcuz the offsets api no has :c
 intScriptBytecodeSizeInMeta = 0x20
+
+intDatamodelFakePtrOffset = 0x0
+intDatamodelPtrInFake = 0x0
+intScriptBytecodeMetaPtr = 0x0
+intScriptBytecodePtrInMeta = 0x0
+intRobloxStringLengthOffset = 0x0
+intInstanceNameOffset = 0x0
+intInstanceChildrenOffset = 0x0
+intInstanceParentOffset = 0x0
+intInstanceMetadataPtr = 0x0
+intInstanceMetadataNamePtr = 0x0
+intChildListEndNextPtr = 0x0
 
 intModuleIsCoreOffset = 0x188
 intModuleFlagsOffsetDelta = 0x4
@@ -17,8 +28,15 @@ def fetch():
     global intChildListEndNextPtr
 
     url = "https://offsets.ntgetwritewatch.workers.dev/offsets.json"
+    req = urllib.request.Request(
+        url, 
+        data=None, 
+        headers={
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
+    )
     try:
-        with urllib.request.urlopen(url) as response:
+        with urllib.request.urlopen(req) as response:
             if response.status == 200:
                 data = json.loads(response.read().decode())
 
@@ -46,7 +64,7 @@ def fetch():
                 
                 print("fetched offsets :3")
             else:
-                print(f"failed to fetch offsets code: {response.status}")
+                print(f"failed to fetch offsets, code: {response.status}")
     except Exception as e:
         print(f"error: {e}")
 
